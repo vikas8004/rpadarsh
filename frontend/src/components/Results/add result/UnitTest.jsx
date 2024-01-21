@@ -1,74 +1,95 @@
 import React from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import { VStack, Box, Select, Input, Button } from "@chakra-ui/react";
+import { VStack, Box, Select, Input, Button ,useToast} from "@chakra-ui/react";
 import * as Yup from "yup";
-const initialValues = {
-  test: "",
-  schoolName: "",
-  year:"",
-  rollno: "",
-  hindi: "",
-  english: "",
-  math: "",
-  science: "",
-  socialStudy: "",
-  sanskrit: "",
-  computer: "",
-  gk: "",
-  drawing: "",
-  pt: "",
-};
-const validationSchema = Yup.object({
-  test: Yup.string().required("Select unit test"),
-  schoolName: Yup.string().required("select the school"),
-  year:Yup.string().required("Please select year"),
-  rollno: Yup.number().required("roll no is required"),
-  hindi: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("hindi number is required"),
-  english: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("english number is required"),
-  math: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("math number is required"),
-  science: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("science number is required"),
-  socialStudy: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("socialStudy number is required"),
-  sanskrit: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("sanskrit number is required"),
-  computer: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("computer number is required"),
-  gk: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("gk number is required"),
-  drawing: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("drawing number is required"),
-  pt: Yup.number()
-    .min(0, "number can not be negative")
-    .max(50, "number can not be greater than 50")
-    .required("pt number is required"),
-});
-const onSubmit = (values, opt) => {
-  console.log(values);
-  opt.resetForm();
-};
+import axios from "axios";
+
 const UnitTest = () => {
+  const toast=useToast()
+  const initialValues = {
+    test: "",
+    schoolName: "",
+    year: "",
+    rollno: "",
+    hindi: "",
+    english: "",
+    math: "",
+    science: "",
+    socialStudy: "",
+    sanskrit: "",
+    computer: "",
+    gk: "",
+    drawing: "",
+    pt: "",
+  };
+  const validationSchema = Yup.object({
+    test: Yup.string().required("Select unit test"),
+    schoolName: Yup.string().required("select the school"),
+    year: Yup.string().required("Please select year"),
+    rollno: Yup.number().required("roll no is required"),
+    hindi: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("hindi number is required"),
+    english: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("english number is required"),
+    math: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("math number is required"),
+    science: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("science number is required"),
+    socialStudy: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("socialStudy number is required"),
+    sanskrit: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("sanskrit number is required"),
+    computer: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("computer number is required"),
+    gk: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("gk number is required"),
+    drawing: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("drawing number is required"),
+    pt: Yup.number()
+      .min(0, "number can not be negative")
+      .max(20, "number can not be greater than 20")
+      .required("pt number is required"),
+  });
+  const onSubmit = async (values, opt) => {
+    // console.log(values);
+    const res = await axios.post(
+      "/api/v1/result/addresult/add-unit-test-result",
+      values
+    );
+    if (res) {
+      const status=res.data.status;
+      toast({
+        title: 'Result',
+        description:status,
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+        position:"top-right"
+      })
+      setTimeout(() => {
+        opt.resetForm()
+      }, 1000);
+    }
+    // opt.resetForm();
+  };
   return (
     <>
       <VStack>
@@ -163,20 +184,14 @@ const UnitTest = () => {
                           width={"80%"}
                           fontSize={"16px"}
                         >
-                          <option value="5023-5024">
-                            5023-5024
-                          </option>
+                          <option value="2023-2024">2023-2024</option>
                           {/* <option value="rbmp convent school">RBMP Convent School</option> */}
                         </Select>
                       </>
                     );
                   }}
                 </Field>
-                <ErrorMessage
-                  name="year"
-                  component={"div"}
-                  className="error"
-                />
+                <ErrorMessage name="year" component={"div"} className="error" />
               </Box>
               <Box
                 flexDirection={"column"}
@@ -496,7 +511,6 @@ const UnitTest = () => {
                 <Button width={"60%"} type="submit">
                   Submit Form
                 </Button>
-               
               </Box>
             </Form>
           </Formik>

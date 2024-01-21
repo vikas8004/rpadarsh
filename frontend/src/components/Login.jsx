@@ -20,7 +20,7 @@ const Login = () => {
   const onSubmit = async (values, opt) => {
     const res = await axios.post("/api/v1/admin/login", values);
     if (res) {
-      console.log(res);
+  
       opt.resetForm();
       setToken(res.data.data.accessToken);
       const msg = res.data.data.message;

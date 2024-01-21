@@ -69,7 +69,7 @@ const AllResult = () => {
       .required("pt number is required"),
   });
   const onSubmit = async(values, opt) => {
-    console.log(values);
+    // console.log(values);
   const res =await axios.post("/api/v1/result/addresult/add-all-result",values);
   if(res){
     const status=res.data.status
