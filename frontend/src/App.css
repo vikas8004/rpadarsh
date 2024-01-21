@@ -1,0 +1,12 @@
+.mainnav{
+    position: absolute;
+    width: 100%;
+    top: 0px;
+}
+
+.error{
+    display: block;
+    text-align: left;
+    width: 80%;
+    color: red;
+}
