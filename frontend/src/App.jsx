@@ -1,6 +1,6 @@
 import "./App.css";
 import Home from "./components/Home";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Result from "./components/Result";
 import Results from "./components/Results/Results.jsx";
@@ -13,10 +13,12 @@ import UnitTest from "./components/Results/add result/UnitTest.jsx";
 import AllResult from "./components/Results/add result/AllResult.jsx";
 import Login from "./components/Login.jsx";
 import { useState } from "react";
-import tokenContext from "./context.jsx";
-
+import { tokenContext } from "./context.jsx";
+import ResultDemo from "./components/Results/ResultDemo.jsx";
+import RegistrationForm from "./components/Admission.jsx";
 function App() {
   const [token, setToken] = useState("");
+
   return (
     <>
       <tokenContext.Provider value={{ token, setToken }}>
@@ -45,6 +47,8 @@ function App() {
             element={<AllResult />}
           />
           <Route path="/admin/login" element={<Login />} />
+          <Route path="/resultdemo" element={<ResultDemo />} />
+          <Route path="/student/registration" element={<RegistrationForm />} />
         </Routes>
       </tokenContext.Provider>
     </>

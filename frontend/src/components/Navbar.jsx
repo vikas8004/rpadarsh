@@ -22,7 +22,7 @@ import logo from "../assests/logo.png";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
-import tokenContext from "../context.jsx";
+import {tokenContext} from "../context.jsx";
 const Navbar = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();

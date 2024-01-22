@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { VStack, Button, Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import tokenContext from "../context.jsx";
+import {tokenContext} from "../context.jsx";
 
 const Result = () => {
   const { token } = useContext(tokenContext);

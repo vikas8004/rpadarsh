@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { VStack, Button, Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+
 const AddResult = () => {
   return (
     <>
@@ -11,19 +12,20 @@ const AddResult = () => {
           justifyContent={"center"}
           height={"80vh"}
         >
-          <Box width={["40%","30%"]} mb={5}>
+          <Box width={["40%", "40%"]} mb={5}>
             <Link to={"add-all-result"}>
               <Button width={"100%"}>Add All Result</Button>
             </Link>
           </Box>
-          
-          <Box width={["40%","30%"]} mb={5}>
+
+          <Box width={["40%", "40%"]} mb={5}>
             <Link to={"add-unit-test-result"}>
-              <Button width={"100%"}>Unit Test Result</Button>
+              <Button width={"100%"}>Add Unit Test Result</Button>
             </Link>
           </Box>
         </VStack>
       </VStack>
+      )
     </>
   );
 };

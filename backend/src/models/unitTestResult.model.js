@@ -58,6 +58,10 @@ const unitTestResultSchema = new Schema(
       type: Number,
       required: true,
     },
+    max: {
+      type: Number,
+      default: 20,
+    },
   },
   { timestamps: true }
 );

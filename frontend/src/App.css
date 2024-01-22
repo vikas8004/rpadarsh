@@ -1,12 +1,30 @@
-.mainnav{
-    position: absolute;
-    width: 100%;
-    top: 0px;
+.mainnav {
+  position: absolute;
+  width: 100%;
+  top: 0px;
 }
 
-.error{
-    display: block;
-    text-align: left;
-    width: 80%;
-    color: red;
+.error {
+  display: block;
+  text-align: left;
+  width: 80%;
+  color: red;
+}
+
+th,
+td {
+  border: 1px solid black;
+}
+
+.regestration {
+  > div {
+    > div ,input{
+      border-color: blue;
+      > select,
+      checkbox,
+      input {
+        border-color: blue;
+      }
+    }
+  }
 }

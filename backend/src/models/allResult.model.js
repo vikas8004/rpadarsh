@@ -58,6 +58,10 @@ const AllResultSchema = new Schema(
       type: Number,
       required: true,
     },
+    max: {
+      type: Number,
+      default: 50,
+    },
   },
   { timestamps: true }
 );

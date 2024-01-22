@@ -1,5 +1,6 @@
 import { createContext } from "react";
 
-const tokenContext=createContext();
+const tokenContext = createContext();
+const resultContext = createContext();
 
-export default tokenContext;
+export { tokenContext, resultContext };
