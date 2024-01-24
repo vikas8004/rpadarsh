@@ -18,6 +18,7 @@ const Login = () => {
     password: Yup.string().required("password is required"),
   });
   const onSubmit = async (values, opt) => {
+    setLoading(true)
     const res = await axios.post("/api/v1/admin/login", values);
     if (res) {
   
@@ -31,11 +32,14 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
         position: "top-right",
+        
       });
       navigate("/");
+      setLoading(false)
     }
    
   };
+  const [loading,setLoading]=useState(false)
   return (
     <>
       <VStack>
@@ -118,7 +122,7 @@ const Login = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Button type="submit" width={"50%"} bg={"tomato"}>
+                <Button type="submit" width={"50%"} bg={"tomato"} isLoading={loading} loadingText="logging">
                   Login As Admin
                 </Button>
               </Box>

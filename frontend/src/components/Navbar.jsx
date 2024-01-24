@@ -47,7 +47,7 @@ const Navbar = () => {
     <>
       <nav className="mainnav">
         <HStack padding={2} justifyContent={"space-between"}>
-          <Image src={logo} width={"50px"} height={"50px"} />
+          <Image src={logo} width={"60px"} height={"60px"} />
           <Text
             fontSize={["16px", "25px"]}
             color={"tomato"}
@@ -65,7 +65,7 @@ const Navbar = () => {
             <DrawerContent>
               <DrawerHeader>
                 <Link to={"/"}>
-                  <Button background={"transparent"} letterSpacing={"4px"}>
+                  <Button background={"transparent"} letterSpacing={"4px"} onClick={onClose}>
                     RPAIC
                   </Button>
                 </Link>

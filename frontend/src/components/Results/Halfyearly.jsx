@@ -1,4 +1,4 @@
-import React ,{useState,useContext} from "react";
+import React, { useState, useContext } from "react";
 import {
   VStack,
   Button,
@@ -11,7 +11,7 @@ import {
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
 import { tokenContext } from "../../context.jsx";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 const Halfyearly = () => {
   const initialValues = {
     resultType: "halfyearly",
@@ -163,10 +163,11 @@ const Halfyearly = () => {
                           fontSize={"16px"}
                         >
                           <option value="rp adrash inter college">
-                            RP Adarsh Inter College
+                            RP Adarsh Inter College Rehar Basti
                           </option>
                           <option value="rbmp convent school">
-                            RBMP Convent School
+                            Ram Belas Memorial Public Convent School Bahdeela
+                            Charkaila Basti
                           </option>
                         </Select>
                       </>
@@ -185,9 +186,11 @@ const Halfyearly = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Button type="submit" width={"50%"} 
-                isLoading={loading}
-                loadingText="Fetching"
+                <Button
+                  type="submit"
+                  width={"50%"}
+                  isLoading={loading}
+                  loadingText="Fetching"
                 >
                   View Result
                 </Button>

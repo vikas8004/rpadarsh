@@ -53,7 +53,7 @@ function App() {
           />
           <Route path="/admin/login" element={<Login />} />
           <Route path="/showresult" element={<ShowResult Component={ResultDemo} />} />
-          <Route path="/student/registration" element={<RegistrationForm />} />
+          <Route path="/student/registration" element={<ProtectedRoute Component={RegistrationForm} />} />
         </Routes>
       </tokenContext.Provider>
     </>

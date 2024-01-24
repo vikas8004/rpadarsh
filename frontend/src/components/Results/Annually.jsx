@@ -164,10 +164,11 @@ const Annually = () => {
                           fontSize={"16px"}
                         >
                           <option value="rp adrash inter college">
-                            RP Adarsh Inter College
+                            RP Adarsh Inter College Rehar Basti
                           </option>
                           <option value="rbmp convent school">
-                            RBMP Convent School
+                            Ram Belas Memorial Public Convent School Bahdeela
+                            Charkaila Basti
                           </option>
                         </Select>
                       </>
@@ -186,7 +187,12 @@ const Annually = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Button type="submit" width={"50%"} isLoading={loading} loadingText="Fetching">
+                <Button
+                  type="submit"
+                  width={"50%"}
+                  isLoading={loading}
+                  loadingText="Fetching"
+                >
                   View Result
                 </Button>
               </Box>

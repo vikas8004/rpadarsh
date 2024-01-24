@@ -18,7 +18,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import { Formik, Field, ErrorMessage, Form } from "formik";
-import {doFirstLetterCapital} from "../utils/doFirstLetterCapital.jsx"
+import { doFirstLetterCapital } from "../utils/doFirstLetterCapital.jsx";
 import * as Yup from "yup";
 import axios from "axios";
 const RegistrationForm = () => {
@@ -110,8 +110,8 @@ const RegistrationForm = () => {
       setLoading(false);
       opt.resetForm(initialValues);
     }
-    setAvatar(null)
-    setSign(null)
+    setAvatar(null);
+    setSign(null);
   };
   const subjects = [
     "Hindi",
@@ -190,10 +190,11 @@ const RegistrationForm = () => {
                           fontSize={"16px"}
                         >
                           <option value="rp adarsh inter college">
-                            RP Adarsh Inter College
+                            RP Adarsh Inter College Rehar Basti
                           </option>
                           <option value="rbmp convent school">
-                            RBMP Convent School
+                            Ram Belas Memorial Public Convent School Bahdeela
+                            Charkaila Basti
                           </option>
                         </Select>
                       </>
@@ -665,23 +666,23 @@ const RegistrationForm = () => {
                 <Field name="gender">
                   {(props) => {
                     const { form, field, meta } = props;
-                   
+
                     return (
                       <HStack width={"100%"}>
                         <Box width={"100%"}>
                           {genderOpt.map((opt) => {
                             return (
-                             <React.Fragment key={opt}>
-                              <Radio
-                              {...field}
-                              value={opt}
-                              name="gender"
-                              isChecked={field.value===opt}
-                              mr={10}
-                              colorScheme="green"
-                              >
-                                {doFirstLetterCapital(opt)}
-                              </Radio>
+                              <React.Fragment key={opt}>
+                                <Radio
+                                  {...field}
+                                  value={opt}
+                                  name="gender"
+                                  isChecked={field.value === opt}
+                                  mr={10}
+                                  colorScheme="green"
+                                >
+                                  {doFirstLetterCapital(opt)}
+                                </Radio>
                               </React.Fragment>
                             );
                           })}
@@ -705,7 +706,9 @@ const RegistrationForm = () => {
                 mb={5}
                 ml={"10%"}
               >
-                <FormLabel htmlFor="subjects" color={"grey"}>Subjects</FormLabel>
+                <FormLabel htmlFor="subjects" color={"grey"}>
+                  Subjects
+                </FormLabel>
                 <Field name="subjects">
                   {({ field }) => (
                     <HStack width={["80", "80%"]} flexWrap={"wrap"}>
@@ -724,7 +727,11 @@ const RegistrationForm = () => {
                     </HStack>
                   )}
                 </Field>
-                <ErrorMessage component={"div"} className="error" name="subjects"/>
+                <ErrorMessage
+                  component={"div"}
+                  className="error"
+                  name="subjects"
+                />
               </Box>
               <Box
                 flexDirection={"column"}
