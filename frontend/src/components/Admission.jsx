@@ -13,15 +13,19 @@ import {
   Stack,
   Checkbox,
   CheckboxGroup,
-  Image
+  Image,
+  useToast,
+  HStack,
 } from "@chakra-ui/react";
 import { Formik, Field, ErrorMessage, Form } from "formik";
+import {doFirstLetterCapital} from "../utils/doFirstLetterCapital.jsx"
 import * as Yup from "yup";
-
+import axios from "axios";
 const RegistrationForm = () => {
+  const toast = useToast();
   const initialValues = {
     schoolName: "",
-    class: "",
+    standard: "",
     fullName: "",
     rollno: "",
     regestrationNo: "",
@@ -44,7 +48,7 @@ const RegistrationForm = () => {
     schoolName: Yup.string().required("required"),
     fullName: Yup.string().required("required"),
     rollno: Yup.string().required("required"),
-    class: Yup.string().required("required"),
+    standard: Yup.string().required("required"),
     regestrationNo: Yup.string(),
     fatherName: Yup.string().required("required"),
     fatherOccupation: Yup.string().required("required"),
@@ -64,9 +68,50 @@ const RegistrationForm = () => {
     subjects: Yup.array().min(1, "atlest one subject is required"),
     gender: Yup.string().required("required"),
   });
-  const onSubmit = (values, opt) => {
+  const onSubmit = async (values, opt) => {
     console.log(values);
-    // opt.resetForm();
+    setLoading(true);
+    opt.resetForm();
+    const formData = new FormData();
+    formData.append("schoolName", values.schoolName);
+    formData.append("standard", values.standard);
+    formData.append("fullName", values.fullName);
+    formData.append("rollno", values.rollno);
+    formData.append("regestrationNo", values.regestrationNo);
+    formData.append("fatherName", values.fatherName);
+    formData.append("fatherOccupation", values.fatherOccupation);
+    formData.append("motherName", values.motherName);
+    formData.append("address", values.address);
+    formData.append("caste", values.caste);
+    formData.append("relegion", values.relegion);
+    formData.append("dob", values.dob);
+    formData.append("lastSchool", values.lastSchool);
+    formData.append("aadharNo", values.aadharNo);
+    formData.append("mobileNo", values.mobileNo);
+    formData.append("image", values.image);
+    formData.append("studentSignature", values.studentSignature);
+    formData.append("subjects", values.subjects);
+    formData.append("gender", values.gender);
+    const res = await fetch("/api/v1/student/registration", {
+      body: formData,
+      method: "POST",
+    });
+    if (res.ok) {
+      toast({
+        title: "Registration",
+        description: `${values.fullName} is successfully registered`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+      const data = await res.json();
+      console.log(data);
+      setLoading(false);
+      opt.resetForm(initialValues);
+    }
+    setAvatar(null)
+    setSign(null)
   };
   const subjects = [
     "Hindi",
@@ -101,7 +146,8 @@ const RegistrationForm = () => {
   ];
   const [avatar, setAvatar] = useState();
   const [sign, setSign] = useState();
-
+  const [loading, setLoading] = useState(false);
+  const genderOpt = ["male", "female"];
   return (
     <>
       <VStack>
@@ -169,9 +215,9 @@ const RegistrationForm = () => {
                 mb={5}
               >
                 <FormLabel textAlign={"left"} width={"80%"} color={"grey"}>
-                  Claas
+                  Class
                 </FormLabel>
-                <Field name="class">
+                <Field name="standard">
                   {(props) => {
                     const { form, meta, field } = props;
                     return (
@@ -179,7 +225,7 @@ const RegistrationForm = () => {
                         <Select
                           placeholder="Select Class"
                           {...field}
-                          name="class"
+                          name="standard"
                           width={"80%"}
                           fontSize={"16px"}
                         >
@@ -194,7 +240,7 @@ const RegistrationForm = () => {
                   }}
                 </Field>
                 <ErrorMessage
-                  name="class"
+                  name="standard"
                   component={"div"}
                   className="error"
                 />
@@ -616,29 +662,34 @@ const RegistrationForm = () => {
                 <FormLabel textAlign={"left"} width={"80%"} color={"grey"}>
                   Gender
                 </FormLabel>
-                <RadioGroup id="gender" name="gender">
-                  <Box width={"80%"} display={"flex"} flex={"row"}>
-                    <Field name="gender">
-                      {({ field }) => (
-                        <Radio
-                          {...field}
-                          value="male"
-                          mr={"20%"}
-                          colorScheme="green"
-                        >
-                          Male
-                        </Radio>
-                      )}
-                    </Field>
-                    <Field name="gender">
-                      {({ field }) => (
-                        <Radio {...field} value="female" colorScheme="green">
-                          Female
-                        </Radio>
-                      )}
-                    </Field>
-                  </Box>
-                </RadioGroup>
+                <Field name="gender">
+                  {(props) => {
+                    const { form, field, meta } = props;
+                   
+                    return (
+                      <HStack width={"100%"}>
+                        <Box width={"100%"}>
+                          {genderOpt.map((opt) => {
+                            return (
+                             <React.Fragment key={opt}>
+                              <Radio
+                              {...field}
+                              value={opt}
+                              name="gender"
+                              isChecked={field.value===opt}
+                              mr={10}
+                              colorScheme="green"
+                              >
+                                {doFirstLetterCapital(opt)}
+                              </Radio>
+                              </React.Fragment>
+                            );
+                          })}
+                        </Box>
+                      </HStack>
+                    );
+                  }}
+                </Field>
                 <ErrorMessage
                   name="gender"
                   component={"div"}
@@ -654,30 +705,26 @@ const RegistrationForm = () => {
                 mb={5}
                 ml={"10%"}
               >
-                <FormLabel htmlFor="subjects">Subjects</FormLabel>
-                <CheckboxGroup id="subjects" name="subjects">
-                  <Stack flexDir={"row"} width={"80%"} flexWrap={"wrap"}>
-                    {subjects.map((checkbox) => (
-                      <Field key={checkbox} name="subjects">
-                        {({ field }) => (
-                          <Checkbox
-                            {...field}
-                            value={checkbox}
-                            colorScheme="green"
-                            width={["80%","auto"]}
-                          >
-                            {checkbox}
-                          </Checkbox>
-                        )}
-                      </Field>
-                    ))}
-                  </Stack>
-                  <ErrorMessage
-                    name="subjects"
-                    component={"div"}
-                    className="error"
-                  />
-                </CheckboxGroup>
+                <FormLabel htmlFor="subjects" color={"grey"}>Subjects</FormLabel>
+                <Field name="subjects">
+                  {({ field }) => (
+                    <HStack width={["80", "80%"]} flexWrap={"wrap"}>
+                      {subjects.map((option) => (
+                        <Checkbox
+                          key={option}
+                          {...field}
+                          value={option}
+                          isChecked={field.value.includes(option)}
+                          colorScheme="green"
+                          width={["80%", "auto"]}
+                        >
+                          {option}
+                        </Checkbox>
+                      ))}
+                    </HStack>
+                  )}
+                </Field>
+                <ErrorMessage component={"div"} className="error" name="subjects"/>
               </Box>
               <Box
                 flexDirection={"column"}
@@ -722,9 +769,7 @@ const RegistrationForm = () => {
                       );
                     }}
                   </Field>
-                 {
-                  avatar? <Avatar src={avatar} boxSize={"60px"} />:null
-                 }
+                  {avatar ? <Avatar src={avatar} boxSize={"60px"} /> : null}
                 </Stack>
                 <ErrorMessage
                   name="image"
@@ -775,7 +820,7 @@ const RegistrationForm = () => {
                       );
                     }}
                   </Field>
-                  <Image src={sign} width={"80px"} rounded={"lg"}/>
+                  <Image src={sign} width={"80px"} rounded={"lg"} />
                 </Stack>
                 <ErrorMessage
                   name="studentSignature"
@@ -792,7 +837,13 @@ const RegistrationForm = () => {
                 mt={6}
                 mb={8}
               >
-                <Button type="submit" width={"50%"} bg={"tomato"}>
+                <Button
+                  type="submit"
+                  width={"50%"}
+                  bg={"tomato"}
+                  isLoading={loading}
+                  loadingText="Submitting"
+                >
                   Register Now
                 </Button>
               </Box>

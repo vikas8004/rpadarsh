@@ -15,7 +15,7 @@ const AllResultSchema = new Schema(
       required: true,
     },
     rollno: {
-      type: Number,
+      type: String,
       required: true,
     },
     hindi: {

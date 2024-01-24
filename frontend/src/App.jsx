@@ -12,16 +12,18 @@ import AddResult from "./components/Results/add result/AddResult.jsx";
 import UnitTest from "./components/Results/add result/UnitTest.jsx";
 import AllResult from "./components/Results/add result/AllResult.jsx";
 import Login from "./components/Login.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { tokenContext } from "./context.jsx";
 import ResultDemo from "./components/Results/ResultDemo.jsx";
 import RegistrationForm from "./components/Admission.jsx";
+import ProtectedRoute from "./components/auth/ProtectedRoute.jsx";
+import ShowResult from "./components/auth/ShowResult.jsx";
 function App() {
   const [token, setToken] = useState("");
-
+  const [result, setResult] = useState("");
   return (
     <>
-      <tokenContext.Provider value={{ token, setToken }}>
+      <tokenContext.Provider value={{ token, setToken, result, setResult }}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -37,17 +39,20 @@ function App() {
           />
           <Route path="/result/results/annuallyresult" element={<Annually />} />
           <Route path="/result/results/finalresult" element={<FinalResult />} />
-          <Route path="/result/addresult" element={<AddResult />} />
+          <Route
+            path="/result/addresult"
+            element={<ProtectedRoute Component={AddResult} />}
+          />
           <Route
             path="/result/addresult/add-unit-test-result"
-            element={<UnitTest />}
+            element={<ProtectedRoute Component={UnitTest} />}
           />
           <Route
             path="/result/addresult/add-all-result"
-            element={<AllResult />}
+            element={<ProtectedRoute Component={AllResult} />}
           />
           <Route path="/admin/login" element={<Login />} />
-          <Route path="/resultdemo" element={<ResultDemo />} />
+          <Route path="/showresult" element={<ShowResult Component={ResultDemo} />} />
           <Route path="/student/registration" element={<RegistrationForm />} />
         </Routes>
       </tokenContext.Provider>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Table,
   Thead,
@@ -11,17 +11,51 @@ import {
   VStack,
   Image,
   Tfoot,
+  Button,
 } from "@chakra-ui/react";
-import logo from "../../logo.jpg";
-const ResultDemo = () => { 
+import { sum } from "../../utils/sum.jsx";
+import { tokenContext } from "../../context.jsx";
+import { doFirstLetterCapital } from "../../utils/doFirstLetterCapital.jsx";
+
+const ResultDemo = () => {
+  const { result } = useContext(tokenContext);
+  const resultData = result.data[0];
+
+  const {
+    computer,
+    drawing,
+    english,
+    gk,
+    hindi,
+    math,
+    pt,
+    sanskrit,
+    science,
+    socialStudy,
+  } = resultData;
+  const sub = [
+    computer,
+    drawing,
+    english,
+    gk,
+    hindi,
+    math,
+    pt,
+    sanskrit,
+    science,
+    socialStudy,
+  ];
+
+
   return (
     <>
       <VStack>
         <VStack
           mt={10}
-          width={["100%", "70%"]}
+          width={["100%", "90%"]}
           justifyContent={"center"}
           alignItems={"center"}
+          
         >
           <TableContainer
             width={"100%"}
@@ -29,6 +63,7 @@ const ResultDemo = () => {
             display={"flex"}
             justifyContent={"center"}
             mb={4}
+            
           >
             <Table
               variant="simple"
@@ -37,25 +72,34 @@ const ResultDemo = () => {
               size={"md"}
               border={"1px solid black"}
               textAlign={"center"}
+              
             >
               <TableCaption placement="top" fontSize={"20px"}>
-                Result 2023-2024
+                {`${doFirstLetterCapital(resultData.term)} Result ${
+                  resultData.year
+                }`}
               </TableCaption>
               <Thead>
                 <Tr>
                   <Th textAlign={"center"} color={"black"}>
                     Name
                   </Th>
-                  <Td textAlign={"center"}>Shani Yadav</Td>
+                  <Td textAlign={"center"}>
+                    {doFirstLetterCapital(resultData.StudentInfo[0].fullName)}
+                  </Td>
                   <Td rowSpan={2} justifyContent={"center"}>
-                    <Image display={"flex"} src={logo} boxSize={20} />
+                    <Image
+                      display={"flex"}
+                      src={resultData.StudentInfo[0].image.secure_url}
+                      boxSize={20}
+                    />
                   </Td>
                 </Tr>
                 <Tr>
                   <Th textAlign={"center"} color={"black"}>
                     ROLL No
                   </Th>
-                  <Td textAlign={"center"}>6</Td>
+                  <Td textAlign={"center"}>{resultData.rollno}</Td>
                 </Tr>
                 <Tr>
                   <Th color={"black"} textAlign={"center"}>
@@ -74,71 +118,71 @@ const ResultDemo = () => {
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     Hindi
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
+                  <Td textAlign={"center"}>{resultData.max}</Td>
+                  <Td textAlign={"center"}>{resultData.hindi}</Td>
                 </Tr>
                 <Tr>
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     English
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
+                  <Td textAlign={"center"}>{resultData.max} </Td>
+                  <Td textAlign={"center"}>{resultData.english}</Td>
                 </Tr>
                 <Tr>
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     Math
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
+                  <Td textAlign={"center"}>{resultData.max} </Td>
+                  <Td textAlign={"center"}>{resultData.math}</Td>
                 </Tr>
                 <Tr>
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     Science
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
+                  <Td textAlign={"center"}>{resultData.max}</Td>
+                  <Td textAlign={"center"}>{resultData.science}</Td>
                 </Tr>
                 <Tr>
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     Social Studies
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
+                  <Td textAlign={"center"}>{resultData.max} </Td>
+                  <Td textAlign={"center"}>{resultData.socialStudy}</Td>
                 </Tr>
                 <Tr>
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     Sanskrit
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
+                  <Td textAlign={"center"}>{resultData.max}</Td>
+                  <Td textAlign={"center"}>{resultData.sanskrit}</Td>
                 </Tr>
                 <Tr>
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     Computer
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
+                  <Td textAlign={"center"}>{resultData.max}</Td>
+                  <Td textAlign={"center"}>{resultData.computer}</Td>
                 </Tr>
                 <Tr>
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     G.K.
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
+                  <Td textAlign={"center"}>{resultData.max}</Td>
+                  <Td textAlign={"center"}>{resultData.gk}</Td>
                 </Tr>
                 <Tr>
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     Drawing
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
-                </Tr> 
+                  <Td textAlign={"center"}>{resultData.max}</Td>
+                  <Td textAlign={"center"}>{resultData.drawing}</Td>
+                </Tr>
                 <Tr>
                   <Td color={"black"} textAlign={"center"} fontWeight={400}>
                     P.T.
                   </Td>
-                  <Td textAlign={"center"}>50 </Td>
-                  <Td textAlign={"center"}>25</Td>
+                  <Td textAlign={"center"}>{resultData.max} </Td>
+                  <Td textAlign={"center"}>{resultData.pt}</Td>
                 </Tr>
               </Tbody>
 
@@ -151,12 +195,23 @@ const ResultDemo = () => {
                     500
                   </Th>
                   <Th textAlign={"center"} color={"black"}>
-                    400
+                    {sum(sub)}
                   </Th>
                 </Tr>
               </Tfoot>
             </Table>
           </TableContainer>
+          <Button
+            mt={-7}
+            colorScheme="orange"
+            mb={"4"}
+            onClick={() => {
+              window.print();
+            }}
+            className="printResult"
+          >
+            Print Result
+          </Button>
         </VStack>
       </VStack>
     </>

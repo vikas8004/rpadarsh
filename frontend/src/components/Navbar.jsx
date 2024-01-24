@@ -18,7 +18,7 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import logo from "../assests/logo.png";
+import logo from "../assests/logo.jpg";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
@@ -80,7 +80,7 @@ const Navbar = () => {
                     Home
                   </Button>
                 </Link>{" "}
-                <Link to={"/admission"}>
+                <Link to={"/student/registration"}>
                   <Button variant={"ghost"} onClick={onClose}>
                     Admission
                   </Button>

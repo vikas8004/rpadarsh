@@ -28,3 +28,13 @@ td {
     }
   }
 }
+
+
+@media print{
+  .mainnav{
+    visibility: hidden;
+  }
+  .printResult{
+    visibility: hidden;
+  }
+}

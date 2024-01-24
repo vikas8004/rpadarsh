@@ -1,25 +1,76 @@
-import React from "react";
-import { VStack, Button, Box, Text, Input, Select } from "@chakra-ui/react";
+import React, { useContext, useState } from "react";
+import {
+  VStack,
+  Button,
+  Box,
+  Text,
+  Input,
+  Select,
+  useToast,
+} from "@chakra-ui/react";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
-
+import { tokenContext } from "../../context.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Annually = () => {
   const initialValues = {
-    resultType:"annually",
-    year:"",
+    resultType: "annually",
+    year: "",
     rollno: "",
     schoolName: "",
   };
   const validationSchema = Yup.object({
-    year:Yup.string().required("Please select year"),
-    rollno: Yup.number().required("Roll number is required"),
+    year: Yup.string().required("Please select year"),
+    rollno: Yup.string().required("Roll number is required"),
     schoolName: Yup.string().required("Please select your school"),
   });
-  const onSubmit = (values, opt) => {
+  const onSubmit = async (values, opt) => {
     console.log(values);
-    opt.resetForm();
+
+    setLoading(true);
+    const res = await fetch("/api/v1/student/showresult", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    if (res.ok) {
+      const resultData = await res.json();
+      console.log(resultData);
+      setResult(resultData);
+      toast({
+        title: "Result",
+        description: "Result fetched successfully",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+      opt.resetForm();
+      setTimeout(() => {
+        setLoading(false);
+        navigate("/showresult");
+      }, 3000);
+    } else {
+      setLoading(false);
+      setResult("");
+      opt.resetForm();
+      toast({
+        title: "Failed",
+        description: "result may not exist or something went wrong",
+        status: "warning",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+    }
   };
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
+  const { setResult } = useContext(tokenContext);
+  const navigate = useNavigate();
   return (
     <>
       <VStack>
@@ -35,7 +86,7 @@ const Annually = () => {
             validationSchema={validationSchema}
           >
             <Form style={{ width: "100%" }}>
-            <Box
+              <Box
                 flexDir={"column"}
                 width={"100%"}
                 display={"flex"}
@@ -55,20 +106,14 @@ const Annually = () => {
                           width={"80%"}
                           fontSize={"16px"}
                         >
-                          <option value="2023-2024">
-                            2023-2024
-                          </option>
+                          <option value="2023-2024">2023-2024</option>
                           {/* <option value="rbmp convent school">RBMP Convent School</option> */}
                         </Select>
                       </>
                     );
                   }}
                 </Field>
-                <ErrorMessage
-                  name="year"
-                  component={"div"}
-                  className="error"
-                />
+                <ErrorMessage name="year" component={"div"} className="error" />
               </Box>
               <Box
                 flexDirection={"column"}
@@ -121,7 +166,9 @@ const Annually = () => {
                           <option value="rp adrash inter college">
                             RP Adarsh Inter College
                           </option>
-                          <option value="rbmp convent school">RBMP Convent School</option>
+                          <option value="rbmp convent school">
+                            RBMP Convent School
+                          </option>
                         </Select>
                       </>
                     );
@@ -139,7 +186,7 @@ const Annually = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Button type="submit" width={"50%"}>
+                <Button type="submit" width={"50%"} isLoading={loading} loadingText="Fetching">
                   View Result
                 </Button>
               </Box>

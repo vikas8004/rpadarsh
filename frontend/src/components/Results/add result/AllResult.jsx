@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, ErrorMessage, Field } from "formik";
-import { VStack, Box, Select, Input, Button ,useToast} from "@chakra-ui/react";
+import { VStack, Box, Select, Input, Button, useToast } from "@chakra-ui/react";
 import * as Yup from "yup";
-import axios from "axios"
+import axios from "axios";
 
 const AllResult = () => {
-  const toast=useToast()
+  const toast = useToast();
   const initialValues = {
     term: "",
-    schoolName:"",
-    year:"",
+    schoolName: "",
+    year: "",
     rollno: "",
     hindi: "",
     english: "",
@@ -24,9 +24,9 @@ const AllResult = () => {
   };
   const validationSchema = Yup.object({
     term: Yup.string().required("Select term"),
-    schoolName:Yup.string().required("Please select school"),
-    year:Yup.string().required("Please select year"),
-    rollno: Yup.number().required("roll no is required"),
+    schoolName: Yup.string().required("Please select school"),
+    year: Yup.string().required("Please select year"),
+    rollno: Yup.string().required("roll no is required"),
     hindi: Yup.number()
       .min(0, "number can not be negative")
       .max(50, "number can not be greater than 50")
@@ -68,36 +68,41 @@ const AllResult = () => {
       .max(50, "number can not be greater than 50")
       .required("pt number is required"),
   });
-  const onSubmit = async(values, opt) => {
+  const onSubmit = async (values, opt) => {
     // console.log(values);
-  const res =await axios.post("/api/v1/result/addresult/add-all-result",values);
-  if(res){
-    const status=res.data.status
-    toast({
-      title: 'Result',
-      description:status,
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-      position:"top-right"
-    })
-    setTimeout(() => {
-      opt.resetForm()
-    }, 1000);
-  }
+    setLoading(true);
+    const res = await axios.post(
+      "/api/v1/result/addresult/add-all-result",
+      values
+    );
+    if (res) {
+      const status = res.data.status;
+      toast({
+        title: "Result",
+        description: status,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+      });
+      setTimeout(() => {
+        opt.resetForm();
+        setLoading(false);
+      }, 1000);
+    }
   };
+  const [loading, setLoading] = useState(false);
   return (
     <>
       <VStack>
         <VStack width={"90%"} marginTop={"95"}>
-          
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
           >
             <Form style={{ width: "80%" }}>
-            <Box
+              <Box
                 flexDirection={"column"}
                 width={"100%"}
                 display={"flex"}
@@ -117,7 +122,7 @@ const AllResult = () => {
                       >
                         <option value="quaterly">Quaterly</option>
                         <option value="halfyearly">HalfYearly</option>
-                        <option value="annual">Annual</option>
+                        <option value="annually">Annual</option>
                       </Select>
                     );
                   }}
@@ -181,20 +186,14 @@ const AllResult = () => {
                           width={"80%"}
                           fontSize={"16px"}
                         >
-                          <option value="2023-2024">
-                            2023-2024
-                          </option>
+                          <option value="2023-2024">2023-2024</option>
                           {/* <option value="rbmp convent school">RBMP Convent School</option> */}
                         </Select>
                       </>
                     );
                   }}
                 </Field>
-                <ErrorMessage
-                  name="year"
-                  component={"div"}
-                  className="error"
-                />
+                <ErrorMessage name="year" component={"div"} className="error" />
               </Box>
               <Box
                 flexDirection={"column"}
@@ -511,10 +510,9 @@ const AllResult = () => {
                 alignItems={"center"}
                 mb={3}
               >
-                <Button width={"60%"} type="submit">
+                <Button width={"60%"} type="submit" isLoading={loading} loadingText="Submitting">
                   Submit Form
                 </Button>
-               
               </Box>
             </Form>
           </Formik>
