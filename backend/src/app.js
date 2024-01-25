@@ -28,5 +28,7 @@ app.use("/api/v1",adminRouter)
 app.use("/api/v1",addResultRouter)
 app.use("/api/v1",showResultRouter)
 app.use("/api/v1",messageRouter)
-
+app.use("/",(req,res)=>{
+  res.send("hello from server")
+})
 export default app;
