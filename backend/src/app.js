@@ -28,5 +28,7 @@ app.use("/api/v1",adminRouter)
 app.use("/api/v1",addResultRouter)
 app.use("/api/v1",showResultRouter)
 app.use("/api/v1",messageRouter)
-
+app.get("/",(req,res)=>{
+  res.sendFile("hello world")
+})
 export default app;
