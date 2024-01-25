@@ -18,7 +18,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "rpaic-bakcend.vercel.app",
     credentials: true,
   })
 );
