@@ -9,7 +9,9 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "/",
+        "path": "/api",
+    "target": "rpaic-backend.vercel.app"
     }
   ]
 }
