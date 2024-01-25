@@ -28,7 +28,7 @@ const QuaterlyResult = () => {
     console.log(values);
 
     setLoading(true);
-    const res = await fetch("rpaic-backend.vercel.app/api/v1/student/showresult", {
+    const res = await fetch("/api/v1/student/showresult", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
