@@ -8,9 +8,7 @@ import showResultRouter from "./routers/showResultRouter.js";
 import messageRouter from "./routers/message.router.js";
 import Admission from "./models/admission.model.js";
 app.use(
-  express.json({
-    limit: "200kb",
-  })
+  express.json()
 );
 app.use(
   express.urlencoded({
