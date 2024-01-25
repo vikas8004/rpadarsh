@@ -19,7 +19,7 @@ app.use(
 );
 
 app.use(cors({
-  origin:"https://rpaic.vercel.app"
+  origin:"rpaic.vercel.app"
 }));
 app.use(express.static("public"));
 app.use(cookieParser());
