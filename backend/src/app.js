@@ -17,7 +17,7 @@ app.use(
   })
 );
 const corsOptions = {
-  origin: "http://localhost:51733", // specify the allowed origin(s)
+  origin: "rpaic.vercel.app", // specify the allowed origin(s)
   methods: ["GET", "POST","UPDATE","DELETE","PATCH"], // specify the allowed HTTP methods
   
 };
