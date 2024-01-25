@@ -13,6 +13,7 @@ import {
 import img3 from "../assests/img3.jpg";
 import img4 from "../assests/img4.jpg";
 import img5 from "../assests/img5.jpg";
+import Footer from "./Footer.jsx";
 
 const Home = () => {
   return (
@@ -31,15 +32,15 @@ const Home = () => {
               <Image
                 src={img3}
                 alt="img1"
-                borderRadius={"20px"}
-                height={"60vh"}
+                
+                height={"70vh"}
               />
             </Box>
             <Box>
-              <Image src={img4} alt="img1" height={"60vh"} />
+              <Image src={img4} alt="img1" height={"70vh"} />
             </Box>
             <Box>
-              <Image src={img5} alt="img1" height={"60vh"} />
+              <Image src={img5} alt="img1" height={"70vh"} />
             </Box>
           </Carousel>
         </Box>
@@ -114,6 +115,7 @@ const Home = () => {
           (Principal)
         </Text>
       </VStack>
+      <Footer/>
     </>
   );
 };

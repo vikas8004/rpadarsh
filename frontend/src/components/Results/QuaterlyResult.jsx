@@ -162,7 +162,7 @@ const QuaterlyResult = () => {
                           width={"80%"}
                           fontSize={"16px"}
                         >
-                          <option value="rp adrash inter college">
+                          <option value="rp adarsh inter college">
                           RP Adarsh Inter College Rehar Basti
                           </option>
                           <option value="rbmp convent school">

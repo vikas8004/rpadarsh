@@ -55,7 +55,7 @@ const ResultDemo = () => {
           width={["100%", "90%"]}
           justifyContent={"center"}
           alignItems={"center"}
-          
+          className="result"
         >
           <TableContainer
             width={"100%"}

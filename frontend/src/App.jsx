@@ -18,12 +18,20 @@ import ResultDemo from "./components/Results/ResultDemo.jsx";
 import RegistrationForm from "./components/Admission.jsx";
 import ProtectedRoute from "./components/auth/ProtectedRoute.jsx";
 import ShowResult from "./components/auth/ShowResult.jsx";
+import AdmitCard from "./components/admit card/AdmitCard.jsx";
+import AdmitCardForm from "./components/admit card/AdmitCardForm.jsx";
+import ShowConditionallyAdmitCard from "./components/auth/ShowConditionallyAdmitCard.jsx";
+import Contact from "./components/Contact.jsx";
+
 function App() {
   const [token, setToken] = useState("");
   const [result, setResult] = useState("");
+  const [admitCard, setAdmitCard] = useState("");
   return (
     <>
-      <tokenContext.Provider value={{ token, setToken, result, setResult }}>
+      <tokenContext.Provider
+        value={{ token, setToken, result, setResult, admitCard, setAdmitCard }}
+      >
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -52,9 +60,25 @@ function App() {
             element={<ProtectedRoute Component={AllResult} />}
           />
           <Route path="/admin/login" element={<Login />} />
-          <Route path="/showresult" element={<ShowResult Component={ResultDemo} />} />
-          <Route path="/student/registration" element={<ProtectedRoute Component={RegistrationForm} />} />
+          <Route
+            path="/showresult"
+            element={<ShowResult Component={ResultDemo} />}
+          />
+          <Route
+            path="/student/registration"
+            element={<ProtectedRoute Component={RegistrationForm} />}
+          />
+          <Route
+            path="/student/view-admit-card"
+            element={<ProtectedRoute Component={AdmitCardForm} />}
+          />
+          <Route
+            path="/student/show-admit-card"
+            element={<ShowConditionallyAdmitCard Component={AdmitCard} />}
+          />
+          <Route path="/contact" element={<Contact/>}/>
         </Routes>
+       
       </tokenContext.Provider>
     </>
   );

@@ -64,11 +64,7 @@ const Navbar = () => {
             <DrawerOverlay backdropFilter={"blur(10px)"} />
             <DrawerContent>
               <DrawerHeader>
-                <Link to={"/"}>
-                  <Button background={"transparent"} letterSpacing={"4px"} onClick={onClose}>
-                    RPAIC
-                  </Button>
-                </Link>
+               <Image src={logo} boxSize={12}/>
                 <DrawerCloseButton mt={"14px"} bg={"tomato"}>
                   <RxCross2 fontSize={"25px"} />
                 </DrawerCloseButton>
@@ -90,7 +86,7 @@ const Navbar = () => {
                     Result
                   </Button>
                 </Link>{" "}
-                <Link to={"/admit-card"}>
+                <Link to={"/student/view-admit-card"}>
                   <Button variant={"ghost"} onClick={onClose}>
                     Admit Card
                   </Button>

@@ -21,6 +21,7 @@ import { Formik, Field, ErrorMessage, Form } from "formik";
 import { doFirstLetterCapital } from "../utils/doFirstLetterCapital.jsx";
 import * as Yup from "yup";
 import axios from "axios";
+import Footer from "./Footer.jsx";
 const RegistrationForm = () => {
   const toast = useToast();
   const initialValues = {
@@ -155,7 +156,7 @@ const RegistrationForm = () => {
           mt={20}
           width={["100%", "70%"]}
           justifyContent={"flex-start"}
-          height={"90vh"}
+          
         >
           <Heading fontSize={"20px"} mb={1} color={"grey"} letterSpacing={2}>
             Regestration Form
@@ -839,8 +840,7 @@ const RegistrationForm = () => {
               <Box
                 width={"100%"}
                 display={"flex"}
-                justifyContent={"center"}
-                alignItems={"center"}
+                
                 mt={6}
                 mb={8}
               >
@@ -850,6 +850,7 @@ const RegistrationForm = () => {
                   bg={"tomato"}
                   isLoading={loading}
                   loadingText="Submitting"
+                  ml={"10%"}
                 >
                   Register Now
                 </Button>
@@ -858,6 +859,7 @@ const RegistrationForm = () => {
           </Formik>
         </VStack>
       </VStack>
+      <Footer/>
     </>
   );
 };
