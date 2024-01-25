@@ -16,12 +16,10 @@ app.use(
     extended: true,
   })
 );
-const corsOptions = {
-  origin: "rpaic.vercel.app", // specify the allowed origin(s)
-  methods: ["GET", "POST","UPDATE","DELETE","PATCH"], // specify the allowed HTTP methods
-  
-};
-app.use(cors());
+
+app.use(cors({
+  origin:"rpaic.vercel.app"
+            ));
 app.use(express.static("public"));
 app.use(cookieParser());
 
