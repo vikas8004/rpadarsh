@@ -10,8 +10,9 @@
     {
       "src": "/(.*)",
       "dest": "/",
-        "path": "/api",
-    "target": "rpaic-backend.vercel.app"
-    }
+        
+    },
+    {"path": "/api",
+    "target": "rpaic-backend.vercel.app"}
   ]
 }
