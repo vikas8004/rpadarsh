@@ -16,12 +16,8 @@ app.use(
     extended: true,
   })
 );
-const corsOptions = {
-  origin: "http://localhost:51733", // specify the allowed origin(s)
-  methods: ["GET", "POST","UPDATE","DELETE","PATCH"], // specify the allowed HTTP methods
-  
-};
-app.use(cors(corsOptions));
+
+app.use(cors();
 app.use(express.static("public"));
 app.use(cookieParser());
 
