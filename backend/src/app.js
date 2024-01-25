@@ -21,7 +21,7 @@ const corsOptions = {
   methods: ["GET", "POST","UPDATE","DELETE","PATCH"], // specify the allowed HTTP methods
   
 };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.static("public"));
 app.use(cookieParser());
 
