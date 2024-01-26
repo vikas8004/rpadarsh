@@ -7,6 +7,6 @@ export default defineConfig({
   //   proxy:{
   //     '/api':'rpaic-backend.vercel.app:1200'
   //   }
-  },
+  // },
   plugins: [react()],
 })
