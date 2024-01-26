@@ -16,7 +16,7 @@ app.use(
   })
 app.use(express.static("public"));
 app.use(cookieParser());
-
+app.use(cors());
 app.use("/api/v1", adminRouter);
 app.use("/api/v1", addResultRouter);
 app.use("/api/v1", showResultRouter);
