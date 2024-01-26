@@ -21,11 +21,11 @@ const Home = () => {
       <VStack justifyContent={"center"}>
         <Box
           display={"flex"}
-          width={"90vw"}
+          width={"100vw"}
           mx="auto"
           justifyContent={"center"}
           alignItems={"center"}
-          mt={100}
+          mt={80}
         >
           <Carousel infiniteLoop autoPlay showThumbs={false}>
             <Box>
@@ -33,14 +33,14 @@ const Home = () => {
                 src={img3}
                 alt="img1"
                 
-                height={"70vh"}
+                height={["50","80vh"]}
               />
             </Box>
             <Box>
-              <Image src={img4} alt="img1" height={"70vh"} />
+              <Image src={img4} alt="img1" height={["50","80vh"]} />
             </Box>
             <Box>
-              <Image src={img5} alt="img1" height={"70vh"} />
+              <Image src={img5} alt="img1" height={["50","80vh"]} />
             </Box>
           </Carousel>
         </Box>
