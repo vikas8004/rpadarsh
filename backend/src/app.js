@@ -17,7 +17,9 @@ app.use(
 );
 
 app.use(cors({
-  origin:"rpaic.vercel.app"
+  origin:"rpaic.vercel.app",
+  credentials:true,
+  methods:["POST","GET","PATCH","UPDATE","DELETE"]
 }));
 app.use(express.static("public"));
 app.use(cookieParser());
