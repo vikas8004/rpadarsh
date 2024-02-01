@@ -21,26 +21,21 @@ const Home = () => {
       <VStack justifyContent={"center"}>
         <Box
           display={"flex"}
-          width={"90vw"}
+          width={"95vw"}
           mx="auto"
           justifyContent={"center"}
           alignItems={"center"}
-          mt={100}
+          mt={"75"}
         >
-          <Carousel infiniteLoop autoPlay showThumbs={false}>
+          <Carousel infiniteLoop autoPlay showThumbs={false} width={"100%"}>
             <Box>
-              <Image
-                src={img3}
-                alt="img1"
-                
-                height={"70vh"}
-              />
+              <Image src={img3} alt="img1" height={["40vh", "70vh"]} />
             </Box>
             <Box>
-              <Image src={img4} alt="img1" height={"70vh"} />
+              <Image src={img4} alt="img1" height={["40vh", "70vh"]} />
             </Box>
             <Box>
-              <Image src={img5} alt="img1" height={"70vh"} />
+              <Image src={img5} alt="img1" height={["40vh", "70vh"]} />
             </Box>
           </Carousel>
         </Box>
@@ -115,7 +110,7 @@ const Home = () => {
           (Principal)
         </Text>
       </VStack>
-      <Footer/>
+      <Footer />
     </>
   );
 };
