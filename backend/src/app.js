@@ -14,14 +14,13 @@ app.use(
   express.urlencoded({
     extended: true,
   })
-<<<<<<< HEAD
+
 );
 
 app.use(cors({
   origin:["https://rpaic.netlify.app","http://localhost:5173"]
 }));
-=======
->>>>>>> af4f9651ddea0ffe3ea012d7cc16c6847d23fc25
+
 app.use(express.static("public"));
 app.use(cookieParser());
 app.use(cors());
