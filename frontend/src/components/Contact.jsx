@@ -7,6 +7,7 @@ import {
   Input,
   Textarea,
   useToast,
+  HStack
 } from "@chakra-ui/react";
 import { Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from "yup";
@@ -73,13 +74,14 @@ const Contact = () => {
   const navigate = useNavigate();
   return (
     <>
-      <VStack>
-        <VStack
-          mt={78}
-          width={["100%", "60%"]}
+     
+        <HStack
+          mt={"80px"}
+          width={["95vw"]}
           justifyContent={"center"}
-          height={"80vh"}
+         
         >
+          <HStack width={["80%","60%"]}>
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
@@ -101,7 +103,7 @@ const Contact = () => {
                       <Input
                         name="name"
                         {...field}
-                        placeholder="Enter your enter"
+                        placeholder="Enter your name"
                         focusBorderColor="tomato"
                         width={"80%"}
                       />
@@ -177,7 +179,7 @@ const Contact = () => {
               >
                 <Button
                   type="submit"
-                  width={"30%"}
+                  width={["60%","60%","30%"]}
                   isLoading={loading}
                   loadingText="Submitting"
                   bg={"tomato"}
@@ -187,8 +189,9 @@ const Contact = () => {
               </Box>
             </Form>
           </Formik>
-        </VStack>
-      </VStack>
+          </HStack>
+        </HStack>
+      
       <Footer/>
     </>
   );

@@ -2,6 +2,7 @@ import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import Admin from "../models/registerAsAdmin.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import jsonwebtoken from "jsonwebtoken";
 const generateToken = async function (userId) {
   try {
     const foundUser = await Admin.findById(userId);
@@ -45,13 +46,16 @@ const loginAdmin = asyncHandler(async (req, res) => {
   const isCorrectPassword = await foundUser.checkPassword(password);
   if (!isCorrectPassword) {
     throw new ApiError(401, "Invalid credentials or user does not exist");
-  } 
+  }
   const { accessToken } = await generateToken(foundUser._id);
   const loggedInUser = await Admin.findById(foundUser._id).select("-password");
+  // console.log(accessToken);
 
   const options = {
     httpOnly: true,
     secure: true,
+    maxAge: 60 * 60 * 1000,
+    sameSite: "none",
   };
   res
     .status(200)
@@ -71,12 +75,49 @@ const logoutAdmin = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
+    maxAge: 60 * 60 * 1000,
+    sameSite: "none",
   };
   return res
     .status(200)
-    .clearCookie("accessToken", options)
+    .clearCookie("accessToken")
     .json(
-      new ApiResponse(200, {}, `${user.userName} , you are logout successfully`)
+      new ApiResponse(
+        200,
+        { status: true },
+        `${user.userName} , you are logout successfully`
+      )
     );
 });
-export { regitsterAdmin, loginAdmin, logoutAdmin };
+const verifyLogin = asyncHandler(async (req, res) => {
+  // console.log(req.cookies);
+  const token = req.cookies?.accessToken;
+  if (!token) {
+    res.status(200).send(new ApiResponse(200, { status: false }));
+  } else {
+    const decodedDetails = await jsonwebtoken.verify(
+      token,
+      process.env.ACCESS_TOKEN_SECRET
+    );
+    console.log(decodedDetails);
+    if (!decodedDetails) {
+      res
+        .status(200)
+        .send(
+          new ApiResponse(200, { message: "invalid token", status: false })
+        );
+    } else {
+      res
+        .status(200)
+        .send(
+          new ApiResponse(200, {
+            message: "user authenticated",
+            status: true,
+            decodedDetails,
+            token,
+          })
+        );
+    }
+  }
+});
+export { regitsterAdmin, loginAdmin, logoutAdmin, verifyLogin };

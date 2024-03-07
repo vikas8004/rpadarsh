@@ -9,15 +9,16 @@ cloudinary.config({
 });
 const uploadImage = async (localPath) => {
   try {
-    const res = await cloudinary.uploader.upload(localPath, {
-      resource_type: "auto",
-    });
-    if (res) {
-      fs.unlinkSync(localPath);
-    }
+    const res = await cloudinary.uploader.upload(localPath);
+    // if (res) {
+    //   fs.unlinkSync(localPath);
+    // }
+    // console.log(res);
+
     return res;
   } catch (error) {
-    fs.unlinkSync(localPath);
+    // fs.unlinkSync(localPath);
+    console.log(error);
     return null;
   }
 };

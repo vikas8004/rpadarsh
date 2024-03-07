@@ -36,7 +36,7 @@ const admissionSchema = new Schema(
       type: String,
       required: true,
     },
-    caste: {
+    category: {
       type: String,
       required: true,
     },
@@ -54,7 +54,6 @@ const admissionSchema = new Schema(
     },
     aadharNo: {
       type: Number,
-      required: true,
     },
     mobileNo: {
       type: Number,
@@ -90,10 +89,10 @@ const admissionSchema = new Schema(
       type: String,
       required: true,
     },
-    year:{
-      type:Number,
-      default:new Date().getFullYear()
-    }
+    year: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

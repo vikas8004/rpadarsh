@@ -1,7 +1,9 @@
 .mainnav {
-  position: absolute;
+  position: fixed;
   width: 100%;
   top: 0px;
+  background-color: tomato;
+  box-sizing: border-box;
 }
 
 .error {
@@ -45,15 +47,39 @@ td {
     }
   }
 }
-#heart{
+#heart {
   font-size: 20px;
 }
 
+.finalTable tr,td{
+padding: 0 4px;
+text-align: center;
+}
 @media print {
   .mainnav {
-    visibility: hidden;
+    /* visibility: hidden; */
+    display: none;
   }
   .printResult {
     visibility: hidden;
+  }
+  .admitCard {
+    margin-top: -55px;
+  }
+
+  .admitcard-fetchDetails {
+    visibility: hidden;
+  }
+  .dashboard-sidebar {
+    visibility: hidden;
+  }
+  .admissionPdf{
+    margin-top: -80px;
+  }
+  .noPrint{
+    visibility: hidden;
+  }
+  .fee{
+    margin-top: -56px;
   }
 }

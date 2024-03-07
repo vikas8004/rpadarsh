@@ -1,10 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { VStack, Button, Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import {tokenContext} from "../context.jsx";
 
 const Result = () => {
-  const { token } = useContext(tokenContext);
   return (
     <>
       <VStack>
@@ -12,16 +10,16 @@ const Result = () => {
           mt={78}
           width={["100%", "60%"]}
           justifyContent={"center"}
-          height={"50vh"}
+          height={"80vh"}
         >
-          <Box width={"50%"} mb={10}>
+          <Box width={["80%","70%","50%"]} mb={6}>
             <Link to={"/result/results"}>
               <Button width={"100%"}>View Result</Button>
             </Link>
           </Box>
-          <Box width={"50%"}>
-            <Link to={"/result/addresult"}>
-              <Button width={"100%"} isDisabled={token?false:true}>Add Result</Button>
+          <Box width={["80%","70%","50%"]} mb={6}>
+            <Link to={"/result/unit-test-results"}>
+              <Button width={"100%"}>Unit Test Result</Button>
             </Link>
           </Box>
         </VStack>

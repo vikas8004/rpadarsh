@@ -13,6 +13,8 @@ import * as Yup from "yup";
 import { tokenContext } from "../../context.jsx";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../utils/constnats.jsx";
+import axios from "axios";
+import { years } from "../../utils/constnats.jsx";
 const QuaterlyResult = () => {
   const initialValues = {
     resultType: "quaterly",
@@ -29,38 +31,34 @@ const QuaterlyResult = () => {
     console.log(values);
 
     setLoading(true);
-    const res = await fetch(`${baseUrl}/api/v1/student/showresult`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
-    if (res.ok) {
-      const resultData = await res.json();
-      console.log(resultData);
-      setResult(resultData);
-      toast({
-        title: "Result",
-        description: "Result fetched successfully",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
-      opt.resetForm();
-      setTimeout(() => {
-        setLoading(false);
-        navigate("/showresult");
-      }, 3000);
-    } else {
+    try {
+      const res = await axios.post(
+        `${baseUrl}/api/v1/student/showresult`,
+        values
+      );
+      if (res) {
+        const resultData = await res.data;
+        // console.log(resultData);
+        setResult(resultData);
+        toast({
+          description: "Result fetched successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+        opt.resetForm();
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/showresult");
+        }, 1000);
+      }
+    } catch (error) {
       setLoading(false);
-      setResult("");
-      opt.resetForm();
+
       toast({
-        title: "Failed",
-        description: "result may not exist or something went wrong",
-        status: "warning",
+        description: error.response.data.data.message,
+        status: "error",
         duration: 3000,
         isClosable: true,
         position: "top-right",
@@ -106,8 +104,7 @@ const QuaterlyResult = () => {
                           width={"80%"}
                           fontSize={"16px"}
                         >
-                          <option value="2023-2024">2023-2024</option>
-                          {/* <option value="rbmp convent school">RBMP Convent School</option> */}
+                         {years.map((el,i)=><option value={el} key={i}>{el}</option>)}
                         </Select>
                       </>
                     );
@@ -164,10 +161,10 @@ const QuaterlyResult = () => {
                           fontSize={"16px"}
                         >
                           <option value="rp adarsh inter college">
-                          RP Adarsh Inter College Rehar Basti
+                            RP Adarsh Inter College Rehar Basti
                           </option>
                           <option value="rbmp convent school">
-                          Ram Belas Memorial Public Convent School Bahdeela
+                            Ram Belas Memorial Public Convent School Bahdeela
                             Charkaila Basti
                           </option>
                         </Select>

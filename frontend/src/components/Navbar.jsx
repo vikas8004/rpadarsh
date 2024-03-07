@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { MdMenu } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import { MdDashboard } from "react-icons/md";
 import {
   HStack,
   Button,
@@ -17,8 +18,9 @@ import {
   Divider,
   Text,
   useToast,
+  Box,
 } from "@chakra-ui/react";
-import logo from "../assests/logo.jpg";
+import logo from "../assests/logo.png";
 import { Link } from "react-router-dom";
 
 import axios from "axios";
@@ -28,40 +30,56 @@ const Navbar = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { token, setToken } = useContext(tokenContext);
+  const dashboardHandler = async () => {
+    onClose();
+  };
   const logOutHandler = async () => {
-    setToken("");
-    const res = await fetch(`${baseUrl}/api/v1/admin/logout`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    // console.log(res);
-    if (res.ok) {
-      const data = await res.json();
-      const statusMsg = data.status;
-      toast({
-        title: "Logout",
-        description: statusMsg,
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-        position: "top-right",
-      });
-      onClose();
-    }
+    try {
+      const res = await axios.post(
+        `${baseUrl}/api/v1/admin/logout`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      // console.log(res);
+      if (res) {
+        setToken("");
+        // console.log(res.data);
+       
+        onClose();
+        const data = res.data.status;
+
+        toast({
+          title: "Logout",
+          description: data,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+        });
+      }
+    } catch (error) {}
   };
   return (
     <>
       <nav className="mainnav">
-        <HStack padding={2} justifyContent={"space-between"}>
-          <Image src={logo} width={"60px"} height={"60px"} />
+        <HStack justifyContent={"space-between"}>
+          <Image src={logo} width={"60px"} />
           <Text
-            fontSize={["16px", "25px"]}
-            color={"tomato"}
-            fontWeight={"bolder"}
+            fontSize={["16px", "20px"]}
+            color={"white"}
+            fontWeight={"400"}
+            textAlign={"left"}
+            width={"100%"}
           >
             RP ADARSH INTER COLLEGE
           </Text>
-          <Button bg={"tomato"} boxSize={50} rounded={"xl"} onClick={onOpen}>
+          <Button
+            bg={"none"}
+            _hover={{ background: "none" }}
+            rounded={"xl"}
+            onClick={onOpen}
+            color={"white"}
+          >
             <MdMenu fontSize={"25px"} />
           </Button>
         </HStack>
@@ -71,7 +89,7 @@ const Navbar = () => {
             <DrawerContent>
               <DrawerHeader>
                 <Image src={logo} boxSize={12} />
-                <DrawerCloseButton mt={"14px"} bg={"tomato"}>
+                <DrawerCloseButton mt={"14px"} bg={"tomato"} color={"white"}>
                   <RxCross2 fontSize={"25px"} />
                 </DrawerCloseButton>
               </DrawerHeader>
@@ -82,34 +100,46 @@ const Navbar = () => {
                     Home
                   </Button>
                 </Link>{" "}
-                <Link to={"/student/registration"}>
+                {/* <Link to={"/student/registration"}>
                   <Button variant={"ghost"} onClick={onClose}>
                     Admission
                   </Button>
-                </Link>{" "}
+                </Link>{" "} */}
                 <Link to={"/result"}>
                   <Button variant={"ghost"} onClick={onClose}>
                     Result
                   </Button>
                 </Link>{" "}
-                <Link to={"/student/view-admit-card"}>
+                {/* <Link to={"/student/view-admit-card"}>
                   <Button variant={"ghost"} onClick={onClose}>
                     Admit Card
                   </Button>
-                </Link>{" "}
+                </Link>{" "} */}
                 {/* <Link to={"/id-card"}>
                   <Button variant={"ghost"} onClick={onClose}>
                     Id Card
                   </Button>
                 </Link> */}
+                <Link to={"/teachers"}>
+                  <Button variant={"ghost"} onClick={onClose}>
+                    Teachers
+                  </Button>
+                </Link>{" "}
+                <Link to={"/gallery"}>
+                  <Button variant={"ghost"} onClick={onClose}>
+                    Gallery
+                  </Button>
+                </Link>{" "}
+                <Link to={"/about-student"}>
+                  <Button variant={"ghost"} onClick={onClose}>
+                    Students
+                  </Button>
+                </Link>{" "}
                 <Link to={"/contact"}>
                   <Button variant={"ghost"} onClick={onClose}>
                     Contact Us
                   </Button>
                 </Link>{" "}
-                {/* <Link to={"/about"}>
-                  <Button variant={"ghost"} onClick={onClose}>About Us</Button>
-                </Link>{" "} */}
               </VStack>
               <VStack
                 position={"absolute"}
@@ -118,15 +148,30 @@ const Navbar = () => {
                 width={"100%"}
               >
                 {token ? (
-                  <Link to={"/"}>
-                    <Button bg={"tomato"} onClick={logOutHandler}>
-                      Logout
-                    </Button>
-                  </Link>
+                  <Box
+                    display={"flex"}
+                    justifyContent={"space-evenly"}
+                    width={"100%"}
+                  >
+                    <Link to={"/"}>
+                      <Button bg={"tomato"} onClick={logOutHandler} size={"md"}>
+                        Logout
+                      </Button>
+                    </Link>
+                    <Link to={"/dashboard/view-dashboard"}>
+                      <Button
+                        onClick={dashboardHandler}
+                        size={"md"}
+                        color={"blue.600"}
+                      >
+                        <MdDashboard /> Dashboard
+                      </Button>
+                    </Link>
+                  </Box>
                 ) : (
                   <Link to={"/admin/login"}>
-                    <Button bg={"tomato"} onClick={onClose}>
-                      Login as Admin
+                    <Button bg={"tomato"} onClick={onClose} size={"sm"}>
+                      Login
                     </Button>
                   </Link>
                 )}
