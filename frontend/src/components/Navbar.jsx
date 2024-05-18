@@ -42,9 +42,12 @@ const Navbar = () => {
       );
       // console.log(res);
       if (res) {
-        setToken("");
+        // setToken("");
         // console.log(res.data);
-       
+        if (res.data.data.status) {
+          setToken("");
+        }
+
         onClose();
         const data = res.data.status;
 
@@ -125,9 +128,9 @@ const Navbar = () => {
                     Teachers
                   </Button>
                 </Link>{" "}
-                <Link to={"/gallery"}>
+                <Link to={"/resources"}>
                   <Button variant={"ghost"} onClick={onClose}>
-                    Gallery
+                    Resources
                   </Button>
                 </Link>{" "}
                 <Link to={"/about-student"}>

@@ -47,6 +47,11 @@ import ShowDashboardTeacher from "./Teacher/ShowDashboardTeacher.jsx";
 
 import UnitTestResult from "./components/Results/UnitTestResult.jsx";
 import ShowUnitTestResult from "./components/Results/ShowUnitTestResult.jsx";
+import UpdateAndForward from "./components/admission/UpdateAndForward.jsx";
+import Resource from "./components/resources/Resource.jsx";
+import UpdateResource from "./components/resources/UpdateResource.jsx";
+import FrontPage from "./components/Results/FrontPage.jsx";
+import FrontViewPage from "./components/Results/FrontViewPage.jsx";
 function App() {
   const [token, setToken] = useState("");
   const [result, setResult] = useState("");
@@ -55,6 +60,7 @@ function App() {
   const [finalResult, setFinalResult] = useState("");
   const [feeReceipt, setFeeReceipt] = useState("");
   const [utResult, setUtResult] = useState("");
+  const [frontPageData, setFrontPageData] = useState("");
   return (
     <>
       <tokenContext.Provider
@@ -73,6 +79,8 @@ function App() {
           setFeeReceipt,
           utResult,
           setUtResult,
+          frontPageData,
+          setFrontPageData,
         }}
       >
         <Navbar />
@@ -99,7 +107,8 @@ function App() {
           <Route
             path="/result/unit-test-results"
             element={<UnitTestResult />}
-          /><Route
+          />
+          <Route
             path="/show-unit-test-result"
             element={<ShowUnitTestResult />}
           />
@@ -142,6 +151,7 @@ function App() {
             path="/showresult"
             element={<ShowResult Component={ResultDemo} />}
           />
+          <Route path="/result/frontpageview" element={<FrontViewPage />} />
           <Route
             path="/student/print-all-admit-card"
             element={<PrintAllAdmitCard />}
@@ -159,11 +169,10 @@ function App() {
           <Route path="/student/fee-receipt" element={<ShowFeeReceipt />} />
           {/* teacher */}
           <Route path="/teachers" element={<ShowHomeTeacher />} />
+          {/* Resource */}
+          <Route path="/resources" element={<Resource />} />
           {/* dashboard */}
-          <Route
-            path="/dashboard/"
-            element={<ProtectedRoute Component={Dashboard} />}
-          >
+          <Route path="/dashboard/" element={<Dashboard />}>
             <Route path="student/registration" element={<RegistrationForm />} />
             <Route path="student/details" element={<StudentDetails />} />
             <Route
@@ -187,6 +196,7 @@ function App() {
               path="result/results/finalresult"
               element={<FinalResult />}
             />
+            <Route path="result/results/frontpage" element={<FrontPage />} />
             <Route path="student/id-card/view-id-card" element={<IdCard />} />
             <Route path="notice" element={<Notice />} />
             <Route path="submit-fee" element={<SubmitFee />} />
@@ -195,6 +205,11 @@ function App() {
               path="student/registrationpdf"
               element={<AdmissionPdfForm />}
             />
+            <Route
+              path="student/update-student"
+              element={<UpdateAndForward />}
+            />
+            <Route path="update-resource" element={<UpdateResource />} />
           </Route>
         </Routes>
       </tokenContext.Provider>

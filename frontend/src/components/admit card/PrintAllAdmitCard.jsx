@@ -157,7 +157,7 @@ const PrintAllAdmitCard = () => {
                   justifyContent={"space-between"}
                   >
                     <Box width={"30%"} textAlign={"center"}>
-                      Class Teacher
+                      Exam Controller
                     </Box>
                     <Box width={"30%"} textAlign={"center"} >
                       Principal
@@ -175,7 +175,7 @@ const PrintAllAdmitCard = () => {
               navigate("/dashboard/student/admitcard/print-admit-card")
             }
             bg={"tomato"}
-            mt={"10"}
+            mt={"40"}
           >
             Go To AdmitCard
           </Button>
